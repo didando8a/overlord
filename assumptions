@@ -1,0 +1,5 @@
+- The city name must be formed by just one word
+- There is no fight on generation of monsters
+- Two or more monsters can fight in the same city
+- When two monsters (or more) fight, the city is
+  destroyed but they can leave it by going through its neighbors

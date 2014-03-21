@@ -1,0 +1,10 @@
+{
+    "require": {
+        "keboola/csv": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Daniel\\Game": "src/"
+        }
+    }
+}
