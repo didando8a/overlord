@@ -21,7 +21,6 @@ class MapDecoder
 
     public function decode()
     {
-        $file = new CsvFile()
         $fileContent = new File($this->file);
         $cityCollection = new CityCollection();
 
