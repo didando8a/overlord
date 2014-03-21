@@ -13,9 +13,12 @@ class Application
 
     protected $cityCollection;
     protected $monsterCollection;
+    protected $numberMonsters;
 
     public function __construct($file, $numberMonsters)
     {
+        $this->numberMonsters = $numberMonsters;
+
         $decoder = new MapDecoder($file);
         $this->cityCollection = $decoder->decode();
 
@@ -26,6 +29,7 @@ class Application
     public function play()
     {
         $numberOfCities = count($this->cityCollection->getCities());
+
         for ($i = 1; $i <= self::MAX_MOVEMENTS; $i++) {
             $this->monsterCollection->moveMonstersForCityCollection($this->cityCollection);
             $conflicts = $this->monsterCollection->getConflicts();
@@ -38,14 +42,19 @@ class Application
                 foreach ($conflict['monsters'] as $monster) {
                     $monsters[] = $monster->getId();
                     $this->monsterCollection->removeMonster($monster);
+                    $this->numberMonsters -= 1;
                 }
 
                 echo $conflict['city']->getName() . " has been destroyed by monsters " . implode(', ', $monsters) . "!\n";
+                if ($this->numberMonsters === 0){
+                    echo "\n\nGame over. All monster have die!!!\n\n";
+                    break;
+                }
             }
 
             $numberOfCities -= count($conflicts);
             if ($numberOfCities === 0) {
-                echo "Game over. All cities have been destroyed!!!\n";
+                echo "\n\nGame over. All cities have been destroyed!!!\n\n";
                 return;
             }
         }
