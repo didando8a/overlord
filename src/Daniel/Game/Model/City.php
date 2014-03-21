@@ -54,4 +54,9 @@ class City
     {
         $this->destroyed = $destroyed;
     }
+
+    public function hasNoWays()
+    {
+        return empty($this->neighbors);
+    }
 }

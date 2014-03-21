@@ -51,6 +51,7 @@ class MonsterCollection
     public function getConflicts()
     {
         $cities = array();
+
         $citiesWithConflict = array();
         $resultantConflicts = array();
 
@@ -74,4 +75,15 @@ class MonsterCollection
 
         return $resultantConflicts;
     }
+
+    public function removeMonster(Monster $monsterToRemove)
+    {
+        /** @var Monster $monster */
+        foreach($this->monsters as $key => $monster){
+            if($monster === $monsterToRemove){
+                unset($this->monsters[$key]);
+            }
+        }
+    }
+
 }

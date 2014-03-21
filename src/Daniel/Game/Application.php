@@ -37,6 +37,7 @@ class Application
                 /** @var Monster $monster */
                 foreach ($conflict['monsters'] as $monster) {
                     $monsters[] = $monster->getId();
+                    $this->monsterCollection->removeMonster($monster);
                 }
 
                 echo $conflict['city']->getName() . " has been destroyed by monsters " . implode(', ', $monsters) . "!\n";
