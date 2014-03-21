@@ -31,9 +31,14 @@ class Application
         $numberOfCities = count($this->cityCollection->getCities());
 
         for ($i = 1; $i <= self::MAX_MOVEMENTS; $i++) {
+#            if ($this->monsterCollection[$i]->currentCity->hasNoWays()) {
+#                $this->monsterCollection[$i]->currentCity = $this->cityCollection->getRandomCity();
+#            }
             $this->monsterCollection->moveMonstersForCityCollection($this->cityCollection);
             $conflicts = $this->monsterCollection->getConflicts();
 
+            /** @var array $conflict
+             */
             foreach ($conflicts as $conflict) {
                 $this->cityCollection->removeCity($conflict['city']);
 
@@ -46,7 +51,7 @@ class Application
                 }
 
                 echo $conflict['city']->getName() . " has been destroyed by monsters " . implode(', ', $monsters) . "!\n";
-                if ($this->numberMonsters === 0){
+                if ($this->numberMonsters === 0) {
                     echo "\n\nGame over. All monster have die!!!\n\n";
                     break;
                 }

@@ -41,7 +41,8 @@ class CityCollection
             if ($city === $cityToRemove) {
                 /** @var City $tempCity */
                 $tempCity = $this->cities[$key];
-                $tempCity->setDestroyed(true);
+                unset($this->cities[$key]);
+                //$tempCity->setDestroyed(true);
             } else {
                 $neighbors = $city->getNeighbors();
                 foreach ($neighbors as $direction => $neighbor) {

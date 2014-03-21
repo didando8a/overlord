@@ -28,8 +28,6 @@ class MonsterCollection
 
             if (!is_null($cityName)) {
                 $monster->setCurrentCity($cityCollection->getCityByName($cityName));
-            } else {
-                $monster->setIdle(true);
             }
         }
     }
@@ -57,19 +55,17 @@ class MonsterCollection
 
         /** @var Monster $monster */
         foreach ($this->monsters as $monster) {
-            if (!$monster->isIdle()) {
-                $city = $monster->getCurrentCity();
-                if (in_array($city, $cities)) {
-                    if (!in_array($city, $citiesWithConflict)) {
-                        $citiesWithConflict[] = $city;
-                        $resultantConflict = array();
-                        $resultantConflict['city'] = $city;
-                        $resultantConflict['monsters'] = $this->getMonstersInCity($city);
-                        $resultantConflicts[] = $resultantConflict;
-                    }
-                } else {
-                    $cities[] = $city;
+            $city = $monster->getCurrentCity();
+            if (in_array($city, $cities)) {
+                if (!in_array($city, $citiesWithConflict)) {
+                    $citiesWithConflict[] = $city;
+                    $resultantConflict = array();
+                    $resultantConflict['city'] = $city;
+                    $resultantConflict['monsters'] = $this->getMonstersInCity($city);
+                    $resultantConflicts[] = $resultantConflict;
                 }
+            } else {
+                $cities[] = $city;
             }
         }
 
@@ -79,8 +75,8 @@ class MonsterCollection
     public function removeMonster(Monster $monsterToRemove)
     {
         /** @var Monster $monster */
-        foreach($this->monsters as $key => $monster){
-            if($monster === $monsterToRemove){
+        foreach ($this->monsters as $key => $monster) {
+            if ($monster === $monsterToRemove) {
                 unset($this->monsters[$key]);
             }
         }
